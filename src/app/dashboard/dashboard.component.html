@@ -1,0 +1,82 @@
+<div class="container">
+    <h2>Person Details</h2>
+
+    <!-- Add Person Button (Top-Right) -->
+    <div class="dashboard-header">
+        <button class="add-btn" (click)="toggleForm()">+ Add Person</button>
+    </div>
+
+    <!-- Add Person Form (Pop-up) -->
+    <div *ngIf="showForm" class="form-popup">
+        <div class="form-container">
+            <h2 class="form-header">
+                Address Person Form
+                <span class="close-btn" (click)="toggleForm()">❌</span>
+            </h2>
+
+            <label for="fullname">Full Name:</label>
+            <input id="fullname" type="text" [(ngModel)]="newPerson.fullname" placeholder="Enter full name" />
+
+            <label for="phoneNumber">Phone Number:</label>
+            <input id="phoneNumber" type="text" [(ngModel)]="newPerson.phoneNumber" placeholder="Enter phone number" />
+
+            <!-- Pin Code, City, and State Row -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="zipCode">Pin Code:</label>
+                    <input id="zipCode" type="text" [(ngModel)]="newPerson.zipCode" placeholder="Enter pin code" />
+                </div>
+
+                <div class="form-group">
+                    <label for="city">City:</label>
+                    <select id="city" [(ngModel)]="newPerson.city">
+                        <option value="New York">New York</option>
+                        <option value="Los Angeles">Los Angeles</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="state">State:</label>
+                    <select id="state" [(ngModel)]="newPerson.state">
+                        <option value="NY">NY</option>
+                        <option value="CA">CA</option>
+                    </select>
+                </div>
+            </div>
+
+            <label for="address">Address:</label>
+            <textarea id="address" [(ngModel)]="newPerson.address" placeholder="Enter address"></textarea>
+
+            <button class="submit-btn" (click)="addPerson()">Add</button>
+        </div>
+    </div>
+
+    <!-- Person Table -->
+    <table *ngIf="persons.length > 0">
+        <thead>
+            <tr>
+                <th>Full Name</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Zip Code</th>
+                <th>Phone Number</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let person of persons">
+                <td>{{ person.fullname }}</td>
+                <td>{{ person.address }}</td>
+                <td>{{ person.city }}</td>
+                <td>{{ person.state }}</td>
+                <td>{{ person.zipCode }}</td>
+                <td>{{ person.phoneNumber }}</td>
+                <td class="action-buttons">
+                    <button class="icon-btn edit-btn" (click)="updatePerson(person)">✏️</button>
+                    <button class="icon-btn delete-btn" (click)="deletePerson(person.id)">🗑️</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
